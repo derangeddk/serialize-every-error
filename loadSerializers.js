@@ -1,4 +1,5 @@
 export default async (options) => {
+  options = options || {};
   const baseSerializer = options.baseSerializer || await import('./baseSerializer.js');
 
   //TODO: validate baseSerializer
