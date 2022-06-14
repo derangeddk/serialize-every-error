@@ -38,6 +38,9 @@ app.use(pino({
     serializers: {
         err: errSerializer,
     },
+
+    // Disable default serializer altogether
+    wrapSerializers: false,
 }));
 ```
 
