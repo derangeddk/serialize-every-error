@@ -1,0 +1,35 @@
+{
+  "devDependencies": {
+    "tap": "^16.2.0"
+  },
+  "scripts": {
+    "test": "tap"
+  },
+  "type": "module",
+  "name": "serialize-every-error",
+  "description": "This package strives to be an exhaustive alternative to normal error serialization for logging",
+  "version": "0.1.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/derangeddk/serialize-every-error.git"
+  },
+  "keywords": [
+    "serialize",
+    "logging",
+    "log",
+    "bunyan",
+    "pino",
+    "error"
+  ],
+  "author": "Niels Abildgaard <niels@deranged.dk>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/derangeddk/serialize-every-error/issues"
+  },
+  "homepage": "https://github.com/derangeddk/serialize-every-error#readme"
+}
