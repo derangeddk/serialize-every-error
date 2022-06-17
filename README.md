@@ -27,21 +27,43 @@ Usage
 
 The error serializer can be added to, for example, pino to add exhaustive error serialization. When you call `req.log.error` with an object with the key `err` that will be serialized as an error.
 
+Here is an example of adding serialize-every-error to an express app using pino as the logger:
+
 ```js
 import express from 'express';
-import errSerializer from 'serialize-every-error';
+import createErrorSerializer from 'serialize-every-error';
 import pino from 'pino-http';
 
 const app = express();
 
 app.use(pino({
     serializers: {
-        err: errSerializer,
+        // Register the standard serializers for other cases,
+        // because `wrapSerializers` has been disabled
+        ...pino.stdSerializers,
+
+        // Run the error serializer constructor, and register it for
+        // the `err` key, overwriting the default serializer.
+        err: await createErrorSerializer(),
     },
 
     // Disable default serializer altogether
     wrapSerializers: false,
 }));
+
+// Now the logger can be used:
+app.get('/', (req, res) => {
+    // Set up an error with a .cause and a field .hello that should be serialized
+    const cause = new Error("A cause for this error");
+    const err = new Error("An error occurred", { cause });
+    err.hello = "world";
+
+    // Note: the field `err` is a significant key that triggers the error serializer,
+    // c.f. https://github.com/pinojs/pino/blob/master/docs/api.md#errors
+    req.log.error({ err }, "An error occurred");
+
+    res.status(500).send({ err });
+});
 ```
 
 Alternatively, with bunyan, it looks like this:
@@ -52,13 +74,37 @@ import bunyan from 'bunyan';
 app.use((req, res, next) => {
     req.log = bunyan.createLogger({
         serializers: {
-            err: errSerializer,
+            err: await createErrorSerializer(),
         },
     });
 });
 ```
 
 Notice that in both cases the special key `err` is what you need to put errors in to have them serialized using this serializer.
+
+Reference
+---------
+
+### `createErrorSerializer([options])`
+
+The default export from the package, sets up a serializer.
+
+- `options`, an object that modifies the behavior of the serializer created.
+  - `include`: an array of strings designating which specialized serializers should be enabled. When this option is present, only the base serializer is included if not otherwise specified. See [supported serializers](#Supported-serializers) below.  
+    This field can only be set if `exclude` is *not* set (they are mutually exclusive).  
+    Default behavior: include all serializers.
+  - `exclude`: an array of strings designating which specialized serializers should be disabled. When present, all serializers are included, unless specified in the array. See [supported serializers](#Supported-serializers) below.  
+    This field can only be set if `include` is *not* set (they are mutually exclusive).  
+    Default behavior: include all serializers.
+- Returns: `Promise<ErrorSerializer>`, await the `Promise` to get the `ErrorSerializer` which serializes errors exhaustively.
+
+### `ErrorSerializer`
+
+A function `(error: any) => any` that takes some value to be serialized as an error, and returns a serialized version of the input, where everything is plain and JSON stringifyable values.
+
+### Supported serializers
+
+There are no currently supported serializers. Help by [contributing](#contributing).
 
 Contributing
 ------------
@@ -72,4 +118,4 @@ We would love your contributions: fixes to serializers and new serializers altog
 
 ### Adding a new serializer
 
-
+Documentation on the way...
