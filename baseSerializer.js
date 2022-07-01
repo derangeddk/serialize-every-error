@@ -28,7 +28,11 @@ export default (err, serializeError) => {
     }
 
     const value = err[key];
-    if(hasOwnProperty.call(value, seen)) {
+    if(value === null || value === undefined) {
+      continue;
+    }
+
+    if(typeof value === 'object' && hasOwnProperty.call(value, seen)) {
       continue;
     }
 

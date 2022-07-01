@@ -23,3 +23,35 @@ test('serializes custom keys added to errors with just the base serializer', asy
 
   t.equal(serialized.statistics, 2);
 });
+
+[ undefined, null ].forEach((value) => {
+  test(`serializes ${value} fields out of existence`, async (t) => {
+    const foo = {'foo': value};
+
+    const serializeError = await createSerializer({ include: [] });
+    const serialized = serializeError(foo);
+
+    t.ok(serialized);
+    t.equal(serialized.foo, undefined);
+  });
+});
+
+test('serializes falsy 0 value correctly', async (t) => {
+  const foo = {'foo': 0};
+
+  const serializeError = await createSerializer({ include: [] });
+  const serialized = serializeError(foo);
+
+  t.ok(serialized);
+  t.equal(serialized.foo, 0);
+});
+
+test('serializes falsy empty string value correctly', async (t) => {
+  const foo = {'foo': 0};
+
+  const serializeError = await createSerializer({ include: [] });
+  const serialized = serializeError(foo);
+
+  t.ok(serialized);
+  t.same(serialized.foo, '');
+});
