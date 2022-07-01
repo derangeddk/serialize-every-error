@@ -28,6 +28,10 @@ export default (err, serializeError) => {
     }
 
     const value = err[key];
+    if(value === null || value === undefined) {
+      continue;
+    }
+
     if(hasOwnProperty.call(value, seen)) {
       continue;
     }
