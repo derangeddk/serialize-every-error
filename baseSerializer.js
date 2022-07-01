@@ -32,7 +32,7 @@ export default (err, serializeError) => {
       continue;
     }
 
-    if(hasOwnProperty.call(value, seen)) {
+    if(typeof value === 'object' && hasOwnProperty.call(value, seen)) {
       continue;
     }
 
