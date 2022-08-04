@@ -8,7 +8,7 @@
   "type": "module",
   "name": "serialize-every-error",
   "description": "This package strives to be an exhaustive alternative to normal error serialization for logging",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "index.js",
   "directories": {
     "test": "test"
