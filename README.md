@@ -82,6 +82,26 @@ app.use((req, res, next) => {
 
 Notice that in both cases the special key `err` is what you need to put errors in to have them serialized using this serializer.
 
+### Synchronous loading
+
+If you do not want to use the asynchronous constructor (`createErrorSerializer`) you can instead choose to import just the base serializer using the `serialize-every-error/base` export. 
+
+The base serializer only includes a simple serializer that works for *most errors* but without the added nice error serialization for certain errors.
+
+The base serializer can be plugged in to e.g. pino in an express app like this (see context above):
+
+```js
+import serializeError from 'serialize-every-error/base';
+
+app.use(pino({
+    serializers: {
+        ...pino.stdSerializers,
+        err: serializeError,
+    },
+    wrapSerializers: false,
+}));
+```
+
 Reference
 ---------
 

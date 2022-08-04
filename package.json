@@ -13,6 +13,9 @@
   "directories": {
     "test": "test"
   },
+  "exports": {
+    "./base": "./exports/base.js"
+  },
   "dependencies": {},
   "repository": {
     "type": "git",
