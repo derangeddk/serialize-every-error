@@ -14,6 +14,7 @@
     "test": "test"
   },
   "exports": {
+    ".": "./index.js",
     "./base": "./exports/base.js"
   },
   "dependencies": {},
