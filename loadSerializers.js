@@ -46,4 +46,5 @@ const createLoader = (name) => {
 
 const everySerializerLoader = [
   'axios',
+  'verror',
 ].map(createLoader);
