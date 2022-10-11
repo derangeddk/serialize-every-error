@@ -17,7 +17,9 @@
     ".": "./index.js",
     "./base": "./exports/base.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash.pick": "^4.4.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/derangeddk/serialize-every-error.git"
