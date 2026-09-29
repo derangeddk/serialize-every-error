@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "tap": "^16.2.0"
+    "tap": "^21.8.0"
   },
   "scripts": {
     "test": "tap"
