@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "tap": "^16.2.0"
+    "tap": "^21.8.0"
   },
   "scripts": {
     "test": "tap"
@@ -8,7 +8,7 @@
   "type": "module",
   "name": "serialize-every-error",
   "description": "This package strives to be an exhaustive alternative to normal error serialization for logging",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -16,9 +16,6 @@
   "exports": {
     ".": "./index.js",
     "./base": "./exports/base.js"
-  },
-  "dependencies": {
-    "lodash.pick": "^4.4.0"
   },
   "repository": {
     "type": "git",
